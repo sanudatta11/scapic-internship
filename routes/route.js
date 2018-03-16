@@ -13,5 +13,3 @@ router.get('/view',auth.authentication, auth.getUser);
 
 module.exports = router;
 
-module.exports = router;
-
