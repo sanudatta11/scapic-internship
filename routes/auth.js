@@ -8,21 +8,16 @@ let router = express.Router();
 let jwt = require('jsonwebtoken');
 let async = require('async');
 let validator = require("email-validator");
-let sha1 = require('sha1');
+let mongoose = require('mongoose');
 
 let auth = require('./auth');
 let config = require('../config');
 
 let User = require('../models/userSchema');
 
-/**
- * Takes 3 parameters(request,result,next) and returns result data.
- * @param   {object} req be the first object
- * @param   {object} res be the second object
- * @param   {object} next is called for calling any next function in the chain
- *
- * @returns {object} the final result object
- */
+
+let Assets = require('./assets');
+let sha1 = require('sha1');
 
 router.login = (req, res, next) => {
     let email = req.body.email;
@@ -83,6 +78,67 @@ router.login = (req, res, next) => {
             "message": "Invalid Data"
         })
     }
+};
+
+router.createUser = (req, res,next) => {
+    async.waterfall([
+        function (callback) {
+            Assets.validateUser(req, function (valid) {
+                if (valid == true) {
+                    callback(null);
+                } else {
+                    res.status(410).json({
+                        "info": "Incomplete or Invalid data"
+                    });
+                }
+            });
+        },
+        function (callback) {
+            Assets.validateNewAccount(req,function (err,data) {
+                if(err)
+                    res.status(500).json({
+                        message: "User Previous account verification Error",
+                        error: err
+                    });
+                else if(!data)
+                    callback(null);
+                else
+                    res.status(409).json({
+                        message: "Conflict of pre-existing Email for an account"
+                    });
+            })
+        },
+        function (callback) {
+            const user = new User({
+                name: {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                },
+                email:  req.body.email,
+                imageBase64: req.body.imageBase64,
+                password: sha1(req.body.password)
+            });
+            user.save(function(err, savedUser) {
+                if (err) {
+                    res.status(500).json({
+                        message: "Error Saving user",
+                        error: err
+                    });
+                } else {
+                    callback(null,savedUser);
+                }
+            });
+        }
+    ], function (err, savedUser) {
+        if (err) {
+            res.status(500).json({
+                message: "User Create Error",
+                error : err
+            });
+        } else {
+            res.status(200).json(savedUser);
+        }
+    });
 };
 
 module.exports = router;

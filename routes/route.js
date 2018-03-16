@@ -4,14 +4,16 @@
 let express = require('express');
 let router = express.Router();
 let jwt = require('jsonwebtoken');
+
 let User = require('../models/userSchema');
+
 let validator = require('validator');
 let isBase64 = require('is-base64');
 
 let config = require('../config');
 
 //Authentication
-router.use(function (req, res, next) {
+router.authentication = function (req, res, next) {
     let token = req.body.token || req.query.token || req.headers.authorization;
     if (token) {
         jwt.verify(token, config.jwt_token, function (err, decoded) {
@@ -34,34 +36,35 @@ router.use(function (req, res, next) {
             message: 'No token provided.'
         });
     }
-});
+};
 
 router.editUser = function (req, res, next) {
-    var valid = validator.isAlpha(req.body.name.firstName);
-    if (req.body.name.middleName) {
-        valid = valid && validator.isAlpha(req.body.name.middleName);
+    var valid = true;
+    if(req.body.firstName)
+        valid  = valid && validator.isAlpha(req.body.firstName);
+    if (req.body.middleName) {
+        valid = valid && validator.isAlpha(req.body.middleName);
     }
-    if (req.body.name.lastName) {
-        valid = valid && validator.isAlpha(req.body.name.lastName);
+    if (req.body.lastName) {
+        valid = valid && validator.isAlpha(req.body.lastName);
     }
     if (req.body.email) {
         valid = valid && validator.isEmail(req.body.email);
     }
-
-    if(!isBase64(req.body.imageBase64)){
+    if(req.body.imageBase64 && !isBase64(req.body.imageBase64)){
         valid = false;
     }
-
-    if (valid == 0) {
+    console.log(req.userId);
+    if (valid == false) {
         res.status(210).json({
             "info": "Invalid data"
         });
     } else {
-        User.findById(req.userId, function (userFetchError, userObj) {
-            if (userFetchError) {
+        User.findById(req.userId, function (err, userObj) {
+            if (err) {
                 res.status(500).json({
                     message: "User Fetch Error",
-                    error: userFetchError
+                    error: err
                 });
             } else if (!userObj) {
                 res.status(404).json({
@@ -69,12 +72,12 @@ router.editUser = function (req, res, next) {
                 });
             }
             else {
-                if(req.body.name.firstName)
-                    userObj.name.firstName = req.body.name.firstName;
-                if(req.body.name.middleName)
-                    userObj.name.middleName = req.body.name.middleName;
-                if(req.body.name.lastName)
-                    userObj.name.lastName = req.body.name.lastName;
+                if(req.body.firstName)
+                    userObj.firstName = req.body.firstName;
+                if(req.body.middleName)
+                    userObj.middleName = req.body.middleName;
+                if(req.body.lastName)
+                    userObj.lastName = req.body.lastName;
                 if(req.body.imageBase64)
                     userObj.imageBase64 = req.body.imageBase64;
                 userObj.save(function (userSaveError, updatedUser) {
@@ -87,9 +90,10 @@ router.editUser = function (req, res, next) {
                     }
                 });
             }
-
         })
     }
 
 };
+
+module.exports = router;
 
