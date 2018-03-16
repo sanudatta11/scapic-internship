@@ -91,7 +91,26 @@ router.editUser = function (req, res, next) {
             }
         })
     }
+};
 
+router.getUser = function (req,res,next) {
+    User.findById(req.userId,
+        'name email imageBase64'
+        , function (err, userObj) {
+        if (err) {
+            res.status(500).json({
+                message: "User Fetch Error",
+                error: err
+            });
+        } else if (!userObj) {
+            res.status(404).json({
+                info: 'User Not Found'
+            });
+        }
+        else {
+            res.status(200).json(userObj);
+        }
+    });
 };
 
 module.exports = router;

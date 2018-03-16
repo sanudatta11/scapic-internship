@@ -51,6 +51,7 @@ app.use(cookieParser());
 app.post('/user/login', auth.login);
 app.post('/user/register', auth.createUser);
 app.post('/user/edit',routes.authentication, routes.editUser);
+app.get('/user/view',routes.authentication, routes.getUser);
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
 
 console.log("Express Server on port = " + port);
