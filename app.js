@@ -48,8 +48,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.get('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
 app.use('/user',routes);
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
 
 console.log("Express Server on port = " + port);
 

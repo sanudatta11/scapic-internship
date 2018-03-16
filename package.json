@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "email-validator": "^1.1.1",
     "express": "~4.15.5",
+    "heroku-cli": "^6.15.32",
     "http": "0.0.0",
     "is-base64": "0.0.4",
     "jade": "~1.11.0",
