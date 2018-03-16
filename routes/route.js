@@ -54,7 +54,6 @@ router.editUser = function (req, res, next) {
     if(req.body.imageBase64 && !isBase64(req.body.imageBase64)){
         valid = false;
     }
-    console.log(req.userId);
     if (valid == false) {
         res.status(210).json({
             "info": "Invalid data"
@@ -73,11 +72,11 @@ router.editUser = function (req, res, next) {
             }
             else {
                 if(req.body.firstName)
-                    userObj.firstName = req.body.firstName;
+                    userObj.name.firstName = req.body.firstName;
                 if(req.body.middleName)
-                    userObj.middleName = req.body.middleName;
+                    userObj.name.middleName = req.body.middleName;
                 if(req.body.lastName)
-                    userObj.lastName = req.body.lastName;
+                    userObj.name.lastName = req.body.lastName;
                 if(req.body.imageBase64)
                     userObj.imageBase64 = req.body.imageBase64;
                 userObj.save(function (userSaveError, updatedUser) {
