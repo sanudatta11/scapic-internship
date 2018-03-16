@@ -23,17 +23,13 @@ let userSchema = new Schema({
             match: /\S+@\S+\.\S+/,
             required: true
         },
-        imageUrl: {
-            type: String
+        imageBase64: {
+            type: String,
+            required: true
         },
         password: {
-            type: String
-        },
-        resetPasswordToken: {
-            type: Number
-        },
-        resetPasswordExpires: {
-            type: Date
+            type: String,
+            required: true
         }
     },
     {
