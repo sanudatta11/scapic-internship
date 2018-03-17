@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "TODO: Add Description",
     "version": "1.0",
-    "title": "Scapic"
+    "title": "Scapic",
+    "description": "TODO: Add Description"
   },
   "host": "scapic-intern.herokuapp.com",
   "basePath": "/user",
@@ -19,21 +19,21 @@
   "paths": {
     "/register": {
       "post": {
+        "description": "",
+        "summary": "Register",
         "tags": [
           "Misc"
         ],
-        "summary": "Register",
-        "description": "",
         "operationId": "RegisterPost",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "in": "body",
             "name": "Body",
-            "description": "",
+            "in": "body",
             "required": true,
+            "description": "",
             "schema": {
               "$ref": "#/definitions/RegisterRequest"
             }
@@ -41,9 +41,9 @@
           {
             "name": "Content-Type",
             "in": "header",
-            "description": "",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": ""
           }
         ],
         "responses": {
@@ -123,21 +123,21 @@
     },
     "/login": {
       "post": {
+        "description": "",
+        "summary": "Login",
         "tags": [
           "Misc"
         ],
-        "summary": "Login",
-        "description": "",
         "operationId": "LoginPost",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "in": "body",
             "name": "Body",
-            "description": "",
+            "in": "body",
             "required": true,
+            "description": "",
             "schema": {
               "$ref": "#/definitions/LoginRequest"
             }
@@ -145,9 +145,9 @@
           {
             "name": "Content-Type",
             "in": "header",
-            "description": "",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": ""
           }
         ],
         "responses": {
@@ -217,21 +217,21 @@
     },
     "/edit": {
       "post": {
+        "description": "",
+        "summary": "Edit Profile",
         "tags": [
           "Misc"
         ],
-        "summary": "Edit Profile",
-        "description": "",
         "operationId": "EditPost",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "in": "body",
             "name": "Body",
-            "description": "",
+            "in": "body",
             "required": true,
+            "description": "",
             "schema": {
               "$ref": "#/definitions/EditProfilerequest"
             }
@@ -239,21 +239,29 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": ""
           },
           {
             "name": "Content-Type",
             "in": "header",
-            "description": "",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": ""
           }
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EditProfile"
+            },
+            "examples": {
+              "application/json": {
+                "id": "5aabe2e2c0bd72356fac3465"
+              }
+            }
           }
         },
         "security": [],
@@ -270,11 +278,21 @@
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "NONE",
+              "x-bodyMatchMode": "RAW",
               "x-arrayOrderedMatching": false,
               "x-arrayCheckCount": false,
               "x-matchResponseSchema": true,
-              "headers": {}
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "33",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Sat, 17 Mar 2018 01:40:16 GMT",
+                "Etag": "W/\"21-D01C6UpXPB1BWJQMS3rL1AJDxrU\"",
+                "Server": "Cowboy",
+                "Via": "1.1 vegur",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"id\":\"5aabe2e2c0bd72356fac3465\"}"
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
@@ -292,11 +310,11 @@
     },
     "/view": {
       "get": {
+        "description": "",
+        "summary": "View Profile",
         "tags": [
           "Misc"
         ],
-        "summary": "View Profile",
-        "description": "",
         "operationId": "ViewGet",
         "produces": [
           "application/json"
@@ -305,16 +323,16 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": ""
           },
           {
             "name": "Content-Type",
             "in": "header",
-            "description": "",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": ""
           }
         ],
         "responses": {
@@ -380,41 +398,6 @@
   },
   "definitions": {
     "RegisterRequest": {
-      "type": "object",
-      "required": [
-        "email",
-        "firstName",
-        "imageBase64",
-        "lastName",
-        "password"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string",
-          "example": "Biswarup",
-          "description": ""
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Banerjee",
-          "description": ""
-        },
-        "email": {
-          "type": "string",
-          "example": "sanudatta12@gmail.com",
-          "description": ""
-        },
-        "password": {
-          "type": "string",
-          "example": "banban",
-          "description": ""
-        },
-        "imageBase64": {
-          "type": "string",
-          "example": "abcd",
-          "description": ""
-        }
-      },
       "title": "RegisterRequest",
       "example": {
         "firstName": "Biswarup",
@@ -422,78 +405,61 @@
         "email": "sanudatta12@gmail.com",
         "password": "banban",
         "imageBase64": "abcd"
-      }
-    },
-    "IncompleteOrInvalidData": {
+      },
       "type": "object",
-      "required": [
-        "info"
-      ],
       "properties": {
-        "info": {
-          "type": "string",
-          "example": "Invalid data",
-          "description": ""
+        "firstName": {
+          "description": "",
+          "example": "Biswarup",
+          "type": "string"
+        },
+        "lastName": {
+          "description": "",
+          "example": "Banerjee",
+          "type": "string"
+        },
+        "email": {
+          "description": "",
+          "example": "sanudatta12@gmail.com",
+          "type": "string"
+        },
+        "password": {
+          "description": "",
+          "example": "banban",
+          "type": "string"
+        },
+        "imageBase64": {
+          "description": "",
+          "example": "abcd",
+          "type": "string"
         }
       },
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "imageBase64"
+      ]
+    },
+    "IncompleteOrInvalidData": {
       "title": "Incomplete or Invalid Data",
       "example": {
         "info": "Invalid data"
-      }
-    },
-    "RegisterSuccess": {
+      },
       "type": "object",
-      "required": [
-        "__v",
-        "_id",
-        "createdAt",
-        "email",
-        "imageBase64",
-        "name",
-        "password",
-        "updatedAt"
-      ],
       "properties": {
-        "name": {
-          "$ref": "#/definitions/Name"
-        },
-        "_id": {
-          "type": "string",
-          "example": "5aabe2e2c0bd72356fac3465",
-          "description": ""
-        },
-        "email": {
-          "type": "string",
-          "example": "sanudatta11@gmail.com",
-          "description": ""
-        },
-        "imageBase64": {
-          "type": "string",
-          "example": "abcd",
-          "description": ""
-        },
-        "password": {
-          "type": "string",
-          "example": "e0378e12d7ac5f9af37052d8763be4f3e8d13041",
-          "description": ""
-        },
-        "createdAt": {
-          "type": "string",
-          "example": "3/16/2018 3:29:38 PM",
-          "description": ""
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "3/16/2018 3:29:38 PM",
-          "description": ""
-        },
-        "__v": {
-          "type": "integer",
-          "format": "int32",
-          "example": 0,
-          "description": ""
+        "info": {
+          "description": "",
+          "example": "Invalid data",
+          "type": "string"
         }
       },
+      "required": [
+        "info"
+      ]
+    },
+    "RegisterSuccess": {
       "title": "Register Success",
       "example": {
         "name": {
@@ -507,142 +473,184 @@
         "createdAt": "2018-03-16T15:29:38.258Z",
         "updatedAt": "2018-03-16T15:29:38.258Z",
         "__v": 0
-      }
-    },
-    "Name": {
-      "type": "object",
-      "required": [
-        "firstName",
-        "lastName"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string",
-          "example": "Soumyajit",
-          "description": ""
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Dutta",
-          "description": ""
-        }
       },
-      "title": "Name",
-      "example": {
-        "firstName": "Soumyajit",
-        "lastName": "Dutta"
-      }
-    },
-    "LoginRequest": {
       "type": "object",
-      "required": [
-        "email",
-        "password"
-      ],
-      "properties": {
-        "email": {
-          "type": "string",
-          "example": "sanudatta11@gmail.com",
-          "description": ""
-        },
-        "password": {
-          "type": "string",
-          "example": "abcdabcd",
-          "description": ""
-        }
-      },
-      "title": "LoginRequest",
-      "example": {
-        "email": "sanudatta11@gmail.com",
-        "password": "abcdabcd"
-      }
-    },
-    "LoginInvalidPassword": {
-      "type": "object",
-      "required": [
-        "message"
-      ],
-      "properties": {
-        "message": {
-          "type": "string",
-          "example": "Invalid Password",
-          "description": ""
-        }
-      },
-      "title": "Login Invalid Password",
-      "example": {
-        "message": "Invalid Password"
-      }
-    },
-    "LoginSuccessfull": {
-      "type": "object",
-      "required": [
-        "access_token"
-      ],
-      "properties": {
-        "access_token": {
-          "type": "string",
-          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbnVkYXR0YTExQGdtYWlsLmNvbSIsInVzZXJJZCI6IjVhYWJlMmUyYzBiZDcyMzU2ZmFjMzQ2NSIsImlhdCI6MTUyMTIxNDQ0NCwiZXhwIjoxNjcxMjE0NDQ0fQ.E50QuLBNx6pjeZP0wampVQTUFN2SOSsZGcYsdtTG518",
-          "description": ""
-        }
-      },
-      "title": "Login SuccessFull",
-      "example": {
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbnVkYXR0YTExQGdtYWlsLmNvbSIsInVzZXJJZCI6IjVhYWJlMmUyYzBiZDcyMzU2ZmFjMzQ2NSIsImlhdCI6MTUyMTIxNDQ0NCwiZXhwIjoxNjcxMjE0NDQ0fQ.E50QuLBNx6pjeZP0wampVQTUFN2SOSsZGcYsdtTG518"
-      }
-    },
-    "EditProfilerequest": {
-      "type": "object",
-      "required": [
-        "firstName",
-        "lastName"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string",
-          "example": "Soumyajit",
-          "description": ""
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Dutta",
-          "description": ""
-        }
-      },
-      "title": "Edit ProfileRequest",
-      "example": {
-        "firstName": "Soumyajit",
-        "lastName": "Dutta"
-      }
-    },
-    "ViewProfileSuccess": {
-      "type": "object",
-      "required": [
-        "_id",
-        "email",
-        "imageBase64",
-        "name"
-      ],
       "properties": {
         "name": {
           "$ref": "#/definitions/Name"
         },
         "_id": {
-          "type": "string",
+          "description": "",
           "example": "5aabe2e2c0bd72356fac3465",
-          "description": ""
+          "type": "string"
         },
         "email": {
-          "type": "string",
+          "description": "",
           "example": "sanudatta11@gmail.com",
-          "description": ""
+          "type": "string"
         },
         "imageBase64": {
-          "type": "string",
+          "description": "",
           "example": "abcd",
-          "description": ""
+          "type": "string"
+        },
+        "password": {
+          "description": "",
+          "example": "e0378e12d7ac5f9af37052d8763be4f3e8d13041",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/16/2018 3:29:38 PM",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/16/2018 3:29:38 PM",
+          "type": "string"
+        },
+        "__v": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
         }
       },
+      "required": [
+        "name",
+        "_id",
+        "email",
+        "imageBase64",
+        "password",
+        "createdAt",
+        "updatedAt",
+        "__v"
+      ]
+    },
+    "Name": {
+      "title": "Name",
+      "example": {
+        "firstName": "Soumyajit",
+        "lastName": "Dutta"
+      },
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "description": "",
+          "example": "Soumyajit",
+          "type": "string"
+        },
+        "lastName": {
+          "description": "",
+          "example": "Dutta",
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName"
+      ]
+    },
+    "LoginRequest": {
+      "title": "LoginRequest",
+      "example": {
+        "email": "sanudatta11@gmail.com",
+        "password": "abcdabcd"
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "",
+          "example": "sanudatta11@gmail.com",
+          "type": "string"
+        },
+        "password": {
+          "description": "",
+          "example": "abcdabcd",
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "LoginInvalidPassword": {
+      "title": "Login Invalid Password",
+      "example": {
+        "message": "Invalid Password"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Invalid Password",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "LoginSuccessfull": {
+      "title": "Login SuccessFull",
+      "example": {
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbnVkYXR0YTExQGdtYWlsLmNvbSIsInVzZXJJZCI6IjVhYWJlMmUyYzBiZDcyMzU2ZmFjMzQ2NSIsImlhdCI6MTUyMTIxNDQ0NCwiZXhwIjoxNjcxMjE0NDQ0fQ.E50QuLBNx6pjeZP0wampVQTUFN2SOSsZGcYsdtTG518"
+      },
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "description": "",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbnVkYXR0YTExQGdtYWlsLmNvbSIsInVzZXJJZCI6IjVhYWJlMmUyYzBiZDcyMzU2ZmFjMzQ2NSIsImlhdCI6MTUyMTIxNDQ0NCwiZXhwIjoxNjcxMjE0NDQ0fQ.E50QuLBNx6pjeZP0wampVQTUFN2SOSsZGcYsdtTG518",
+          "type": "string"
+        }
+      },
+      "required": [
+        "access_token"
+      ]
+    },
+    "EditProfilerequest": {
+      "title": "Edit ProfileRequest",
+      "example": {
+        "firstName": "Soumyajit",
+        "lastName": "Dutta"
+      },
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "description": "",
+          "example": "Soumyajit",
+          "type": "string"
+        },
+        "lastName": {
+          "description": "",
+          "example": "Dutta",
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName"
+      ]
+    },
+    "EditProfile": {
+      "title": "Edit Profile",
+      "example": {
+        "id": "5aabe2e2c0bd72356fac3465"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": "5aabe2e2c0bd72356fac3465",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "ViewProfileSuccess": {
       "title": "View Profile Success",
       "example": {
         "name": {
@@ -652,7 +660,34 @@
         "_id": "5aabe2e2c0bd72356fac3465",
         "email": "sanudatta11@gmail.com",
         "imageBase64": "abcd"
-      }
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/Name"
+        },
+        "_id": {
+          "description": "",
+          "example": "5aabe2e2c0bd72356fac3465",
+          "type": "string"
+        },
+        "email": {
+          "description": "",
+          "example": "sanudatta11@gmail.com",
+          "type": "string"
+        },
+        "imageBase64": {
+          "description": "",
+          "example": "abcd",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "_id",
+        "email",
+        "imageBase64"
+      ]
     }
   }
 }
