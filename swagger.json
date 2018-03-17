@@ -5,10 +5,10 @@
     "title": "Scapic",
     "description": "TODO: Add Description"
   },
-  "host": "localhost:8000",
+  "host": "scapic-intern.herokuapp.com",
   "basePath": "/user",
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
