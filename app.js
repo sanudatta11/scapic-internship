@@ -47,8 +47,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+let optionsSwagger = {
+    explorer : true
+};
+
 app.use('/user',routes);
-app.get('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,optionsSwagger));
 console.log("Express Server on port = " + port);
 
 // catch 404 and forward to error handler
