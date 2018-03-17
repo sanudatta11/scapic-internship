@@ -10,7 +10,6 @@ let config = require("./config");
 
 // including routes files
 let routes = require('./routes/route.js');
-let auth = require('./routes/auth.js');
 
 let app = express();
 let server = require('http');
@@ -48,9 +47,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
 app.use('/user',routes);
-
+app.get('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
 console.log("Express Server on port = " + port);
 
 // catch 404 and forward to error handler

@@ -7,7 +7,6 @@ let express = require('express');
 let router = express.Router();
 let jwt = require('jsonwebtoken');
 let async = require('async');
-let Evalidator = require("email-validator");
 let validator = require("validator");
 let mongoose = require('mongoose');
 let sha1 = require('sha1');
@@ -70,7 +69,7 @@ router.login = (req, res, next) => {
                     }
                 });
             },
-            function (data, callback) {
+            function (data, callback) {app.use('/user',routes);
                 if(data.password == sha1(password))
                 {
                     let token = jwt.sign({
@@ -246,7 +245,7 @@ router.getUser = function (req,res,next) {
 router.login = (req, res, next) => {
     let email = req.body.email;
     let password = req.body.password;
-    if (email && password && validator.validate(email)) {
+    if (email && password && validator.isEmail(email)) {
         async.waterfall([
             function (callback) {
                 User.findOne({
